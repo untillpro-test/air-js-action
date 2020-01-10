@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "air-action",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "unTill Air Action",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
@@ -10,21 +10,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/untillpro-test/air-action.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
-    "JavaScript"
+    "Air"
   ],
-  "author": "GitHub",
+  "author": "unTill Pro",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/untillpro-test/air-action/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/untillpro-test/air-action#readme",
   "dependencies": {
-    "@actions/core": "^1.1.1"
+    "@actions/core": "^1.2.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.5",
