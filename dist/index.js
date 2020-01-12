@@ -53,27 +53,36 @@ module.exports = require("os");
 /***/ 104:
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-const core = __webpack_require__(470);
-const wait = __webpack_require__(949);
+const core = __webpack_require__(470)
+const wait = __webpack_require__(949)
+const { readdirSync } = __webpack_require__(747)
 
+async function checkDotDirectories() {
+	const getDirectories = source =>
+		readdirSync(source, { withFileTypes: true })
+			.filter(dirent => dirent.isDirectory())
+			.map(dirent => dirent.name)
+	core.debug(getDirectories)
+}
 
 // most @actions toolkit packages have async methods
 async function run() {
-  try { 
-    const ms = core.getInput('milliseconds');
-    console.log(`Waiting ${ms} milliseconds ...`)
+	try {
+		const ms = core.getInput('milliseconds')
+		console.log(`Waiting ${ms} milliseconds ...`)
 
-    core.debug((new Date()).toTimeString())
-    wait(parseInt(ms));
-    core.debug((new Date()).toTimeString())
+		core.debug((new Date()).toTimeString())
+		wait(parseInt(ms));
+		core.debug((new Date()).toTimeString())
 
-    core.setOutput('time', new Date().toTimeString());
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
+		core.setOutput('time', new Date().toTimeString())
+	}
+	catch (error) {
+		core.setFailed(error.message)
+	}
 }
 
+checkDotDirectories()
 run()
 
 
@@ -358,6 +367,13 @@ exports.getState = getState;
 /***/ (function(module) {
 
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 747:
+/***/ (function(module) {
+
+module.exports = require("fs");
 
 /***/ }),
 
