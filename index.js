@@ -3,15 +3,18 @@ const wait = require('./wait')
 const { readdirSync } = require('fs')
 
 async function checkDotDirectories() {
+	console.log("checkDotDirectories: begin")
 	const getDirectories = source =>
 		readdirSync(source, { withFileTypes: true })
 			.filter(dirent => dirent.isDirectory())
 			.map(dirent => dirent.name)
-	core.debug(getDirectories)
+	console.log(getDirectories)
+	console.log("checkDotDirectories: end")
 }
 
 // most @actions toolkit packages have async methods
 async function run() {
+	console.log("run: begin")
 	try {
 		const ms = core.getInput('milliseconds')
 		console.log(`Waiting ${ms} milliseconds ...`)
@@ -25,6 +28,7 @@ async function run() {
 	catch (error) {
 		core.setFailed(error.message)
 	}
+	console.log("run: end")
 }
 
 checkDotDirectories()
