@@ -57,13 +57,14 @@ const core = __webpack_require__(470)
 const wait = __webpack_require__(949)
 const { readdirSync } = __webpack_require__(747)
 
+const getDirectories = source =>
+	readdirSync(source, { withFileTypes: true })
+		.filter(dirent => dirent.isDirectory())
+		.map(dirent => dirent.name)
+
 async function checkDotDirectories() {
 	console.log("checkDotDirectories: begin")
-	const getDirectories = source =>
-		readdirSync(source, { withFileTypes: true })
-			.filter(dirent => dirent.isDirectory())
-			.map(dirent => dirent.name)
-	console.log(getDirectories)
+	console.log(getDirectories("."))
 	console.log("checkDotDirectories: end")
 }
 
