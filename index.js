@@ -2,13 +2,14 @@ const core = require('@actions/core')
 const wait = require('./wait')
 const { readdirSync } = require('fs')
 
+const getDirectories = source =>
+	readdirSync(source, { withFileTypes: true })
+		.filter(dirent => dirent.isDirectory())
+		.map(dirent => dirent.name)
+
 async function checkDotDirectories() {
 	console.log("checkDotDirectories: begin")
-	const getDirectories = source =>
-		readdirSync(source, { withFileTypes: true })
-			.filter(dirent => dirent.isDirectory())
-			.map(dirent => dirent.name)
-	console.log(getDirectories)
+	console.log(getDirectories("."))
 	console.log("checkDotDirectories: end")
 }
 
