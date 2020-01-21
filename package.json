@@ -1,5 +1,5 @@
 {
-  "name": "air-action",
+  "name": "air-js-action",
   "version": "1.0.0",
   "description": "unTill Air Action",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/untillpro-test/air-action.git"
+    "url": "git+https://github.com/untillpro-test/air-js-action.git"
   },
   "keywords": [
     "GitHub",
@@ -20,9 +20,9 @@
   "author": "unTill Pro",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/untillpro-test/air-action/issues"
+    "url": "https://github.com/untillpro-test/air-js-action/issues"
   },
-  "homepage": "https://github.com/untillpro-test/air-action#readme",
+  "homepage": "https://github.com/untillpro-test/air-js-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.0"
   },

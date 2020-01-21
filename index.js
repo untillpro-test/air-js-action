@@ -1,30 +1,15 @@
 const core = require('@actions/core')
-const wait = require('./wait')
-const { readdirSync } = require('fs')
-
-const getDirectories = source =>
-	readdirSync(source, { withFileTypes: true })
-		.filter(dirent => dirent.isDirectory())
-		.map(dirent => dirent.name)
-
-async function checkDotDirectories() {
-	console.log("checkDotDirectories: begin")
-	console.log(getDirectories("."))
-	console.log("checkDotDirectories: end")
-}
+const rejectHiddenFolders = require('./rejectHiddenFolders')
 
 // most @actions toolkit packages have async methods
 async function run() {
 	console.log("run: begin")
 	try {
-		const ms = core.getInput('milliseconds')
-		console.log(`Waiting ${ms} milliseconds ...`)
-
+		const expectedHiddenFolders = core.getInput('expectedHiddenFolders');
+		console.log('Reject ".*" folders')
 		core.debug((new Date()).toTimeString())
-		wait(parseInt(ms));
+		rejectHiddenFolders(expectedHiddenFolders)
 		core.debug((new Date()).toTimeString())
-
-		core.setOutput('time', new Date().toTimeString())
 	}
 	catch (error) {
 		core.setFailed(error.message)
@@ -32,5 +17,4 @@ async function run() {
 	console.log("run: end")
 }
 
-checkDotDirectories()
 run()

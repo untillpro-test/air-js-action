@@ -54,32 +54,17 @@ module.exports = require("os");
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470)
-const wait = __webpack_require__(949)
-const { readdirSync } = __webpack_require__(747)
-
-const getDirectories = source =>
-	readdirSync(source, { withFileTypes: true })
-		.filter(dirent => dirent.isDirectory())
-		.map(dirent => dirent.name)
-
-async function checkDotDirectories() {
-	console.log("checkDotDirectories: begin")
-	console.log(getDirectories("."))
-	console.log("checkDotDirectories: end")
-}
+const rejectHiddenFolders = __webpack_require__(424)
 
 // most @actions toolkit packages have async methods
 async function run() {
 	console.log("run: begin")
 	try {
-		const ms = core.getInput('milliseconds')
-		console.log(`Waiting ${ms} milliseconds ...`)
-
+		const expectedHiddenFolders = core.getInput('expectedHiddenFolders');
+		console.log('Reject ".*" folders')
 		core.debug((new Date()).toTimeString())
-		wait(parseInt(ms));
+		rejectHiddenFolders(expectedHiddenFolders)
 		core.debug((new Date()).toTimeString())
-
-		core.setOutput('time', new Date().toTimeString())
 	}
 	catch (error) {
 		core.setFailed(error.message)
@@ -87,8 +72,32 @@ async function run() {
 	console.log("run: end")
 }
 
-checkDotDirectories()
 run()
+
+
+/***/ }),
+
+/***/ 424:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const { readdirSync } = __webpack_require__(747)
+
+const getSubFolders = source =>
+	readdirSync(source, { withFileTypes: true })
+		.filter(dirent => dirent.isDirectory())
+		.map(dirent => dirent.name)
+
+let rejectHiddenFolders = function (expectedHiddenFolders) {
+	var expectedHiddenFoldersArray = expectedHiddenFolders.split(',')
+	getSubFolders(".").forEach(folder => {
+		if (folder.charAt(0) == '.' && folder != ".git" && folder != ".github") {
+			if (!expectedHiddenFoldersArray.includes(folder))
+				throw new Error(`Unexpected hidden folder: "${folder}"`);
+		}
+	});
+}
+
+module.exports = rejectHiddenFolders;
 
 
 /***/ }),
@@ -379,24 +388,6 @@ module.exports = require("path");
 /***/ (function(module) {
 
 module.exports = require("fs");
-
-/***/ }),
-
-/***/ 949:
-/***/ (function(module) {
-
-let wait = function(milliseconds) {
-  return new Promise((resolve, reject) => {
-    if (typeof(milliseconds) !== 'number') { 
-      throw new Error('milleseconds not a number'); 
-    }
-
-    setTimeout(() => resolve("done!"), milliseconds)
-  });
-}
-
-module.exports = wait;
-
 
 /***/ })
 

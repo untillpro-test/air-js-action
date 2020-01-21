@@ -1,30 +1,29 @@
 
-<p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
-</p>
+# air-js-action
 
-# Create a JavaScript Action
+unTill Air JS Action:
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
-
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.  
-
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
-
-## Create an action from this template
-
-Click the `Use this Template` and provide the new repo details for your action
+* Reject ".*" folders
+* TODO: Reject sources which do not have "Copyright" word in first comment
+* TODO: Reject sources which have LICENSE word in first comment but LICENSE file does not exist
+* TODO: Reject go.mod with local replaces
+* TODO: Automatically merge from develop to master
+* TODO: Reject commits to master
+* For Go projects
+  * TODO: Run `go build ./...` and `go test ./...`
 
 ## Code in Master
 
 Install the dependencies  
+
 ```bash
-$ npm install
+npm install
 ```
 
 Run the tests :heavy_check_mark:  
+
 ```bash
-$ npm test
+npm test
 
  PASS  ./index.test.js
   ✓ throws invalid number (3ms)
@@ -51,9 +50,9 @@ const core = require('@actions/core');
 ...
 
 async function run() {
-  try { 
+  try {
       ...
-  } 
+  }
   catch (error) {
     core.setFailed(error.message);
   }
@@ -89,15 +88,15 @@ Users shouldn't consume the action from master since that would be latest code a
 Checkin to the v1 release branch
 
 ```bash
-$ git checkout -b v1
-$ git commit -a -m "v1 release"
+git checkout -b v1
+git commit -a -m "v1 release"
 ```
 
 ```bash
-$ git push origin v1
+git push origin v1
 ```
 
-Your action is now published! :rocket: 
+Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
@@ -106,9 +105,5 @@ See the [versioning documentation](https://github.com/actions/toolkit/blob/maste
 You can now consume the action by referencing the v1 branch
 
 ```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
+uses: untillpro-test/air-js-action@master
 ```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
